@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: standard-host-path-nfs-manual-pv
+spec:
+  capacity:
+    storage: 256Mi
+  accessModes:
+  - ReadWriteMany
+  persistentVolumeReclaimPolicy: Delete
+  storageClassName: standard
+  nfs:
+    # NFS Server IP & Path
+    server: 192.168.49.1
+    path: /Users/lanhuang/Minikube/nfs-mount

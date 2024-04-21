@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: standard-host-path-nfs-manual-pvc-deployment
+  labels:
+    app: standard-host-path-nfs-manual-pvc-deployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: standard-host-path-nfs-manual-pvc-pod
+  template:
+    metadata:
+      labels:
+        app: standard-host-path-nfs-manual-pvc-pod
+    spec:
+      topologySpreadConstraints:
+      - maxSkew: 1
+        topologyKey: kubernetes.io/hostname
+        whenUnsatisfiable: DoNotSchedule
+        labelSelector:
+          matchLabels:
+            app: standard-host-path-nfs-manual-pvc-pod
+      containers:
+      - name: busybox-container
+        image: busybox
+        imagePullPolicy: IfNotPresent
+        command:
+        - /bin/sh
+        - -c
+        - 'sleep 60; for i in  $(seq 1 5); do host=$(hostname); now=$(date +"%T"); echo "adding time: $now, from $host" >> /my-test/shared.txt; sleep 10; done; sleep infinity'
+        volumeMounts:
+        - name: volv
+          mountPath: /my-test
+        ports:
+        - containerPort: 80
+        resources: {}
+      volumes:
+      - name: volv
+        persistentVolumeClaim:
+          claimName: standard-host-path-nfs-manual-pvc
