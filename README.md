@@ -26,6 +26,12 @@ This repo is used to set up a local Multi-node Minikube Kubernetes environment o
 * Minikube
 * Create a dir called `nfs-mount` in `/Users/xxx/Minikube` in my Mac
 
+## Architecture
+
+Running K8S in docker or docker in docker
+
+![Alt text](./images/architecture.png)
+
 ## How to setup
 
 ### 1. Create a colima Linux VM with a mount from my local macOS host
