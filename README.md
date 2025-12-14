@@ -40,9 +40,9 @@ Run the following commands on my Mac terminal.
 
 ```bash
 colima start -p linux-vm
-colima ssh -p linus-vm
+colima ssh -p linux-vm
 colima list
-colima status -p linus-vm
+colima status -p linux-vm
 
 ```
 
